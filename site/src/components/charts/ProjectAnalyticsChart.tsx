@@ -30,7 +30,6 @@ export default function ProjectAnalyticsChart({ height, width, projectName, defa
 			.then((res) => {
 				if (res.success && res.data) {
 					analytics = res.data.data;
-
 				}
 
 				setData(convertToChartData(timeWindow, analytics));
@@ -107,8 +106,8 @@ function convertToChartData(timeWindow: TimeWindow, data: DownloadAnalyticsDataP
 	const mapped = data.map((point) => ({
 		// Moment for some reason was setting the hours/mins to now despite us passing 00:00
 		// So we force start of day here
-		timestamp: moment(point.t).startOf('day').valueOf(),
-		value: parseInt(point.downloads),
+		timestamp: point.ts * 1000,
+		value: point.downloads,
 	}));
 
 	// TODO: Ideally move this server side
@@ -122,6 +121,7 @@ function convertToChartData(timeWindow: TimeWindow, data: DownloadAnalyticsDataP
 		}
 	}
 
+	console.log('mapped data', mapped);
 	return mapped;
 }
 

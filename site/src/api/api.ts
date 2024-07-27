@@ -39,8 +39,8 @@ export function getUser(ctx: AstroCtx) {
 }
 
 export interface DownloadAnalyticsDataPoint {
-	t: string;
-	downloads: string;
+	ts: number;
+	downloads: number;
 }
 
 interface ProjectAnalyticsResponse {
